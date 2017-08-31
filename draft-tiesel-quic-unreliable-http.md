@@ -64,13 +64,13 @@ Introduction        {#intro}
 HTTP has become part of application protocols used for time critical
 applications like video streaming and back-office ad auctions.
 These applications might have time constrains that can make
-retransmissions of lost frames useless. 
+retransmissions of lost frames useless.
 Some of these applications may make use of partial delivery of
 their messages, but reliable, in-order stream transmission blocks
 the deliver of data after a gap in the stream by design.
 
 This draft enables applications to request partial delivery of HTTP
-objects by allowing to selectively disable retransmissions on HTTP 
+objects by allowing to selectively disable retransmissions on HTTP
 responses.
 
 
@@ -78,7 +78,7 @@ General Concept
 ===============
 
 This draft specifies a new HTTP header used to request unreliable
-delivery of the HTTP request body. 
+delivery of the HTTP request body.
 The server then uses unreliable QUIC streams as specified in
 {{I-D.tiesel-unreliable-streams}} to transfer HTTP request bodies
 in a potentially unreliable way.
@@ -95,21 +95,22 @@ transmission of the response body:
     Transport-Response-Reliability: unreliable
 
 In case unreliable transmission should only be used to prevent
-retransmissions after a certain deadline, the client hat add the 
+retransmissions after a certain deadline, the client hat add the
 following header:
 
     Transport-Response-Reliability: unreliable-after DATE
 
-Where DATE uses the format specified in [RFC7231] with optionally
-extending time-of-day to
+Where DATE is either an relative offset in milliseconds or uses
+the format specified in [RFC7231] with optionally extending
+time-of-day to
 
    time-of-day = hour ":" minute ":" second
                 | hour ":" minute ":" second "." msec
 
 
 In case of requested having requested unreliable deliver with using
-the ```unreliable-after``` verb, retransmissions on that stream 
-should be stopped after the date given.
+the ```unreliable-after``` verb, retransmissions on that stream
+should be stopped after the time specified.
 
 For unreliable deliver with using the ```unreliable``` verb, the
 server may use domain knowledge about the data transmitted to decide
@@ -133,9 +134,9 @@ within an unreliable stream.
 Stream Mapping for draft-ietf-quic-http-04
 ------------------------------------------
 
-The control stream always uses a reliable stream to ease state keeping.
+The control stream MUST alway use a reliable stream to ease state keeping.
 
-When indicated by the ```Transport-Response-Reliability``` HTTP header, 
+When indicated by the ```Transport-Response-Reliability``` HTTP header,
 the server SHOULD open the data stream as unreliable stream.
 
 
