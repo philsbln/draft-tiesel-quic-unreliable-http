@@ -127,15 +127,16 @@ Internet-Draft         Unreliable HTTP/2 over QUIC           August 2017
 
    Transport-Response-Reliability: unreliable-after DATE
 
-   Where DATE uses the format specified in [RFC7231] with optionally
-   extending time-of-day to
+   Where DATE is either an relative offset in milliseconds or uses the
+   format specified in [RFC7231] with optionally extending time-of-day
+   to
 
    time-of-day = hour ":" minute ":" second | hour ":" minute ":" second
    "." msec
 
    In case of requested having requested unreliable deliver with using
    the "unreliable-after" verb, retransmissions on that stream should be
-   stopped after the date given.
+   stopped after the time specified.
 
    For unreliable deliver with using the "unreliable" verb, the server
    may use domain knowledge about the data transmitted to decide whether
@@ -154,12 +155,11 @@ Internet-Draft         Unreliable HTTP/2 over QUIC           August 2017
 
 5.1.  Stream Mapping for draft-ietf-quic-http-04
 
-   The control stream always uses a reliable stream to ease state
+   The control stream MUST alway use a reliable stream to ease state
    keeping.
 
    When indicated by the "Transport-Response-Reliability" HTTP header,
    the server SHOULD open the data stream as unreliable stream.
-
 
 
 
@@ -195,25 +195,25 @@ Internet-Draft         Unreliable HTTP/2 over QUIC           August 2017
 
    [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
-              DOI 10.17487/RFC7231, June 2014,
-              <http://www.rfc-editor.org/info/rfc7231>.
+              DOI 10.17487/RFC7231, June 2014, <https://www.rfc-
+              editor.org/info/rfc7231>.
 
    [RFC7540]  Belshe, M., Peon, R., and M. Thomson, Ed., "Hypertext
               Transfer Protocol Version 2 (HTTP/2)", RFC 7540,
-              DOI 10.17487/RFC7540, May 2015,
-              <http://www.rfc-editor.org/info/rfc7540>.
+              DOI 10.17487/RFC7540, May 2015, <https://www.rfc-
+              editor.org/info/rfc7540>.
 
 8.2.  Informative References
 
    [I-D.ietf-quic-http]
               Bishop, M., "Hypertext Transfer Protocol (HTTP) over
-              QUIC", draft-ietf-quic-http-04 (work in progress), June
+              QUIC", draft-ietf-quic-http-05 (work in progress), August
               2017.
 
    [I-D.ietf-quic-transport]
               Iyengar, J. and M. Thomson, "QUIC: A UDP-Based Multiplexed
-              and Secure Transport", draft-ietf-quic-transport-04 (work
-              in progress), June 2017.
+              and Secure Transport", draft-ietf-quic-transport-05 (work
+              in progress), August 2017.
 
 
 
@@ -233,8 +233,8 @@ Internet-Draft         Unreliable HTTP/2 over QUIC           August 2017
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <http://www.rfc-editor.org/info/rfc2119>.
+              DOI 10.17487/RFC2119, March 1997, <https://www.rfc-
+              editor.org/info/rfc2119>.
 
 Author's Address
 

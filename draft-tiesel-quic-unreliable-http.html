@@ -385,15 +385,15 @@ Transport-Response-Reliability: unreliable
 <pre>
 Transport-Response-Reliability: unreliable-after DATE
 </pre>
-<p id="rfc.section.4.p.3">Where DATE uses the format specified in <a href="#RFC7231">[RFC7231]</a> with optionally extending time-of-day to</p>
+<p id="rfc.section.4.p.3">Where DATE is either an relative offset in milliseconds or uses the format specified in <a href="#RFC7231">[RFC7231]</a> with optionally extending time-of-day to</p>
 <p id="rfc.section.4.p.4">time-of-day = hour &#8220;:&#8221; minute &#8220;:&#8221; second | hour &#8220;:&#8221; minute &#8220;:&#8221; second &#8220;.&#8221; msec</p>
-<p id="rfc.section.4.p.5">In case of requested having requested unreliable deliver with using the <samp>unreliable-after</samp> verb, retransmissions on that stream should be stopped after the date given.</p>
+<p id="rfc.section.4.p.5">In case of requested having requested unreliable deliver with using the <samp>unreliable-after</samp> verb, retransmissions on that stream should be stopped after the time specified.</p>
 <p id="rfc.section.4.p.6">For unreliable deliver with using the <samp>unreliable</samp> verb, the server may use domain knowledge about the data transmitted to decide whether to retransmit parts of the data.</p>
 <h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#stream-mapping" id="stream-mapping">Stream Mapping</a></h1>
 <p id="rfc.section.5.p.1">As the stream mapping between versions -04 and -05 of <a href="#I-D.ietf-quic-http">[I-D.ietf-quic-http]</a> changes from separating HTTP header and body into different QUIC streams into having HTTP/2 frames of different types in one stream, we need different stream mapping for these.</p>
 <p id="rfc.section.5.p.2">Note that draft-ietf-quic-http-04 allows much simpler implementation as it does not require partial retransmission within an unreliable stream.</p>
 <h1 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1.</a> <a href="#stream-mapping-for-draft-ietf-quic-http-04" id="stream-mapping-for-draft-ietf-quic-http-04">Stream Mapping for draft-ietf-quic-http-04</a></h1>
-<p id="rfc.section.5.1.p.1">The control stream always uses a reliable stream to ease state keeping.</p>
+<p id="rfc.section.5.1.p.1">The control stream MUST alway use a reliable stream to ease state keeping.</p>
 <p id="rfc.section.5.1.p.2">When indicated by the <samp>Transport-Response-Reliability</samp> HTTP header, the server SHOULD open the data stream as unreliable stream.</p>
 <h1 id="rfc.section.5.2"><a href="#rfc.section.5.2">5.2.</a> <a href="#stream-mapping-for-draft-ietf-quic-http-05-wip" id="stream-mapping-for-draft-ietf-quic-http-05-wip">Stream Mapping for draft-ietf-quic-http-05-wip</a></h1>
 <p id="rfc.section.5.2.p.1">As prerequisite to requesting unreliable delivery of HTTP objects, the client MUST open the new stream as unreliable stream.  The <samp>Transport-Response-Reliability</samp> HTTP header sent over reliable streams SHOULD be ignored.</p>
@@ -427,13 +427,13 @@ Transport-Response-Reliability: unreliable-after DATE
       <td class="reference">
         <b id="I-D.ietf-quic-http">[I-D.ietf-quic-http]</b>
       </td>
-      <td class="top"><a>Bishop, M.</a>, "<a href="http://tools.ietf.org/html/draft-ietf-quic-http-04">Hypertext Transfer Protocol (HTTP) over QUIC</a>", Internet-Draft draft-ietf-quic-http-04, June 2017.</td>
+      <td class="top"><a>Bishop, M.</a>, "<a href="http://tools.ietf.org/html/draft-ietf-quic-http-05">Hypertext Transfer Protocol (HTTP) over QUIC</a>", Internet-Draft draft-ietf-quic-http-05, August 2017.</td>
     </tr>
     <tr>
       <td class="reference">
         <b id="I-D.ietf-quic-transport">[I-D.ietf-quic-transport]</b>
       </td>
-      <td class="top"><a>Iyengar, J.</a> and <a>M. Thomson</a>, "<a href="http://tools.ietf.org/html/draft-ietf-quic-transport-04">QUIC: A UDP-Based Multiplexed and Secure Transport</a>", Internet-Draft draft-ietf-quic-transport-04, June 2017.</td>
+      <td class="top"><a>Iyengar, J.</a> and <a>M. Thomson</a>, "<a href="http://tools.ietf.org/html/draft-ietf-quic-transport-05">QUIC: A UDP-Based Multiplexed and Secure Transport</a>", Internet-Draft draft-ietf-quic-transport-05, August 2017.</td>
     </tr>
     <tr>
       <td class="reference">
