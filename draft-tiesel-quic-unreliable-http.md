@@ -2,7 +2,7 @@
 title: Unreliable Transmission Extension for HTTP/2 over QUIC
 abbrev: Unreliable HTTP/2 over QUIC
 docname: draft-tiesel-quic-unreliable-http-latest
-date: 2017-08-11
+date: 2017-09-05
 category: info
 
 ipr: trust200902
@@ -30,21 +30,13 @@ normative:
 informative:
   RFC2119:
   I-D.ietf-quic-transport:
-  I-D.tiesel-unreliable-streams:
-    title: "Considerations for Unreliable Streams in QUIC"
-    date: 2017-08
-    author:
-      -
-        name: Philipp S. Tiesel
-        ins: P. S. Tiesel
-    seriesinfo:
-      ietf-tiesel-quic-unreliable-streams (work in progress)
+  I-D.tiesel-quic-unreliable-streams:
   I-D.ietf-quic-http:
 
 --- abstract
 
 This draft outlines methods for requesting unreliable delivery
-of HTTP response bodies over QUIC with unreliable streams {{I-D.tiesel-unreliable-streams}}.
+of HTTP response bodies over QUIC with unreliable streams specified in {{I-D.tiesel-quic-unreliable-streams}}.
 
 --- middle
 
@@ -65,7 +57,7 @@ HTTP has become part of application protocols used for time sensitive applicatio
 These applications might have time constraints that can make retransmissions of lost frames useless.
 Some of these applications can operate on partially delivered messages, but waiting for retransmissions blocks the delivery of data after a gap in the stream by design.
 
-This draft enables applications to request partial delivery of HTTP objects by allowing to selectively disable retransmissions for HTTP responses.
+This draft enables applications to request partial delivery of HTTP objects by allowing to disable retransmissions for HTTP response bodies.
 
 
 General Concept
@@ -73,7 +65,7 @@ General Concept
 
 This draft specifies a new HTTP header for requesting unreliable delivery of the HTTP request body.
 For answering requests including this header, the server  uses unreliable QUIC streams as specified in
-{{I-D.tiesel-unreliable-streams}} to transfer HTTP request bodies in a (partially) unreliable way.
+{{I-D.tiesel-quic-unreliable-streams}} to transfer HTTP request bodies in a (partially) unreliable way.
 To use the regular HTTP client logic, headers
 are always transferred reliably.
 
@@ -90,9 +82,9 @@ retransmissions after a certain deadline, the client hat add the following heade
 
     Transport-Response-Reliability: unreliable-after DATE
 
-Where DATE is either a relative offset in milliseconds or a date as specified in [RFC7231] with optionally extending time-of-day to
+Where DATE is either a relative offset in milliseconds or a date as specified in [RFC7231] with optionally extending time-of-day to:
 
-   time-of-day = hour ":" minute ":" second
+    time-of-day = hour ":" minute ":" second
                 | hour ":" minute ":" second "." msec
 
 
@@ -127,10 +119,10 @@ the server SHOULD open the data stream as unreliable stream.
 Stream Mapping for draft-ietf-quic-http-05
 ------------------------------------------
 
-As a prerequisite to requesting unreliable delivery of HTTP objects, the client MUST open a the stream used for the request as an unreliable stream.
+As a prerequisite to requesting unreliable delivery of HTTP objects, the client MUST open a stream used for the request as an unreliable stream.
 The ```Transport-Response-Reliability``` HTTP header sent over reliable streams SHOULD be ignored.
 
-Despite opening the stream as unreliable stream, all HTTP/QUIC frame headers, as well as the payload of ```HEADERS``` frames, MUST be transmitted reliably to re-use normal HTTP/2 application logic.
+Despite opening the stream as an unreliable stream, all HTTP/QUIC frame headers, as well as the payload of ```HEADERS``` frames, MUST be transmitted reliably to re-use normal HTTP/2 application logic.
 
 
 Security Considerations {#sec}
